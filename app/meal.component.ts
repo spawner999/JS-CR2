@@ -1,6 +1,7 @@
 import { Component } from 'angular2/core';
 import { Meal } from './meal.model';
 import { EditMealComponent } from './edit-meal.component';
+import {NgStyle} from 'angular2/common';
 
 @Component({
   selector: 'meal',
@@ -9,7 +10,7 @@ import { EditMealComponent } from './edit-meal.component';
   template: `
     <div class="meal">
       <div [class.flipped]="editMode" class="card">
-        <div class="face front">
+        <div [ngStyle]="{'background-image': 'url(' + currentMeal.imgUrl + ')'}" class="face front">
           <h2 (click)="selectMeal()">{{ currentMeal.name }}</h2>
           <div class="meal__info" *ngIf="isSelected">
             <h3>Description: {{ currentMeal.details }}</h3>

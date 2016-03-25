@@ -24,7 +24,7 @@ export class CreateMealComponent {
   createdMeal: EventEmitter<Meal>;
   constructor(){
     this.createdMeal = new EventEmitter();
-    this.templateMeal = new Meal('', '', 0);
+    this.templateMeal = new Meal('Name', 'I liked it', 0);
   }
   sendMeal(meal: Meal){
     this.createdMeal.emit(meal);

@@ -1,0 +1,21 @@
+{
+  "name": "JS-CR2",
+  "description": "",
+  "main": "gulpfile.js",
+  "authors": [
+    "lorenzo ferrario <student@epicodus.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/spawner999/JS-CR2",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "moment": "^2.12.0"
+  }
+}
