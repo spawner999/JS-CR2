@@ -1,8 +1,18 @@
 *{
   box-sizing: border-box;
 }
+
+.gallery {
+  display: flex;
+flex-wrap: wrap;
+width: 100%;
+}
 // CARD FLIPPING
 
+meal, create-meal{
+  lost-column: 1/2;
+
+}
 .meal{
   outline: none;
   height: 175px;

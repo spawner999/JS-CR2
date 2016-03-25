@@ -2,7 +2,7 @@ import { Component, EventEmitter } from 'angular2/core';
 import { Meal } from './meal.model';
 
 
-//NGMODEL does not work with absolutely postitioned element, since they are outside of the ngzone angular
+//NGMODEL does not work with absolutely postitioned elements, since they are outside of the ngzone angular
 // is keeeping track of. Must update values manually
 @Component({
   selector: 'edit-meal',
