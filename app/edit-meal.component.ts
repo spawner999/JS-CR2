@@ -12,7 +12,8 @@ import { Meal } from './meal.model';
     <h2>Name: <input type="text" value="{{currentMeal.name}}" #name/></h2>
     <h3>Description: <input type="text" value="{{currentMeal.details}}" #desc/></h3>
     <h3>Calories : <input type="number" value="{{currentMeal.calories}}" #cal/></h3>
-    <button (click)="editToggle(false, name.value, desc.value, cal.value)">Confirm</button>
+    <button (click)="editToggle(name.value, desc.value, cal.value)">Confirm</button>
+    <button (click)="editToggle()">Undo</button>
   `
 })
 
@@ -22,9 +23,11 @@ export class EditMealComponent {
   constructor(){
     this.commitChanges = new EventEmitter();
   }
-  editToggle(value: boolean, name: string, desc: string, cal: string){
+  editToggle(name?: string, desc?: string, cal?: string){
+    if(cal && desc && name){
      var changes: String[] = [];
      changes.push(name, desc, cal.toString());
+    }
     this.commitChanges.emit(changes);
   }
 }

@@ -1,4 +1,11 @@
+/// <reference path=".././typings/moment/moment.d.ts"/>
+
 export class Meal {
-  imgUrl= 'http://lorempixel.com/500/200/food/' + Math.floor(Math.random() * 10 + 1);
-  constructor(public name: string, public details: string, public calories: number){}
+  imgUrl: string;
+  day;
+  constructor(public name: string, public details: string, public calories: number){
+    var random: number = Math.floor(Math.random() * 10 + 1);
+    this.imgUrl = 'http://lorempixel.com/500/200/food/' + random;
+    this.day = moment();
+  }
 }

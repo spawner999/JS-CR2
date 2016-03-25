@@ -1,31 +1,38 @@
-import { Component } from 'angular2/core';
+import { Component, EventEmitter } from 'angular2/core';
 import { Meal } from './meal.model';
 import { MealComponent } from './meal.component';
 import { MealFilterComponent } from './meal-filter.component';
-import { MealFilterPipe } from './meal-filter.pipe';
 import { CreateMealComponent } from './create-meal.component';
 
+// <meal-filter (currentFilter)="filterReceived($event)"></meal-filter>
 @Component({
   selector: 'meal-list',
-  inputs: ['myMeals'],
-  pipes: [MealFilterPipe],
+  inputs: ['myMeals', 'currentDate'],
+  outputs: ['createdMeal'],
   directives: [MealComponent, MealFilterComponent, CreateMealComponent],
   template: `
-    <meal-filter (currentFilter)="filterReceived($event)"></meal-filter>
+    <h1>{{currentDate}}</h1>
     <div class="gallery">
-    <meal *ngFor="#meal of myMeals | filter:currentFilter" [currentMeal]="meal"></meal>
-    <create-meal (createdMeal)="mealReceived($event)"></create-meal>
+    <meal *ngFor="#meal of myMeals" [currentMeal]="meal"></meal>
+    <create-meal *ngIf="currentDate===actualDate" (createdMeal)="mealReceived($event)"></create-meal>
     </div>
   `
 })
 
 export class MealListComponent {
   currentFilter: string;
+  currentDate: string;
+  actualDate: string;
+  createdMeal: EventEmitter<Meal>;
   myMeals: Meal[];
+  constructor(){
+    this.actualDate = moment().format('MMM Do YY');
+    this.createdMeal = new EventEmitter();
+  }
   filterReceived(filter: string){
     this.currentFilter = filter;
   }
   mealReceived(meal: Meal){
-    this.myMeals.push(meal);
+    this.createdMeal.emit(meal);
   }
 }

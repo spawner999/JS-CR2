@@ -10,7 +10,7 @@ import { EditMealComponent } from './edit-meal.component';
     <div class="meal">
       <div [class.flipped]="editMode" class="card">
         <div class="face front">
-          <h2 (click)="editToggle('true')">ADD NEW MEAL +</h2>
+          <h2 [ngStyle]="{'text-align': 'center'}"(click)="editToggle('true')">Add Meal</h2>
         </div>
         <edit-meal [currentMeal]="templateMeal" (commitChanges)="editToggle(false, $event)" class="face back"></edit-meal>
       </div>

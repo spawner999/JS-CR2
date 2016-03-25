@@ -15,6 +15,12 @@ width: 100%;
 // CARD FLIPPING
 
 .wrapper{
+  h1{
+    box-shadow: 4px 2px 4px black;
+    color: white;
+    background: black;
+    opacity: .5;
+  }
   max-width: 1400px;
   margin: auto;
 }
@@ -60,13 +66,16 @@ meal, create-meal{
     padding-left: 1em;
     position: absolute;
     z-index: 1;
-    background: peachpuff;
+    background-color: #dfe5f0;
+    background-image: url("http://www.transparenttextures.com/patterns/dimension.png");
     cursor: pointer;
 }
   .card .back {
+    background: url('http://www.todayifoundout.com/wp-content/uploads/2013/08/cutlery.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
     box-shadow: 4px 2px 4px black;
     -webkit-transform: rotatex(-180deg);
-    background: lightblue;
     color: white;
     cursor: pointer;
     padding-left: 1em;
