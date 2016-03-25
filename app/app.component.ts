@@ -22,7 +22,7 @@ export class AppComponent {
     var totalMeals: number = Math.floor(Math.random() * 10);
     for(var i = 1; i <= totalMeals; i++){
       var name = 'Meal#' + i;
-      var description = 'Description#' + i;
+      var description = 'Lorem Ipsum Caloriem ' + i;
       var calories = Math.floor(Math.random() * 500);
       this.myMeals.push(new Meal(name, description, calories));
     }
