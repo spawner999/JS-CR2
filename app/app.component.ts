@@ -19,10 +19,10 @@ export class AppComponent {
     this.populate();
   }
   populate(){
-    var totalMeals: number = Math.floor(Math.random() * 10);
+    var totalMeals: number = Math.floor(Math.random() * 10) + 1;
     for(var i = 1; i <= totalMeals; i++){
       var name = 'Meal#' + i;
-      var description = 'Lorem Ipsum Caloriem ' + i;
+      var description = 'Lorem Ipsum#' + i;
       var calories = Math.floor(Math.random() * 500);
       this.myMeals.push(new Meal(name, description, calories));
     }
