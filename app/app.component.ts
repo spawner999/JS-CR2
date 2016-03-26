@@ -19,12 +19,12 @@ import { DayFilterPipe } from './day-filter.pipe';
 
 export class AppComponent {
   myMeals: Meal[] = [];
-  dates: string[] = [];
+  dates = [];
   constructor(){
     this.populate();
   }
   populate(){
-    var totalMeals: number = Math.floor(Math.random() * 10) + 1;
+    var totalMeals: number = Math.floor(Math.random() * 30) + 10;
     for(var i = 1; i <= totalMeals; i++){
       var name = 'Meal#' + i;
       var description = 'Lorem Ipsum#' + i;
@@ -32,22 +32,33 @@ export class AppComponent {
       var newMeal = new Meal(name, description, calories);
       var random: number = Math.floor(Math.random() * 10 + 1);
       newMeal.day = newMeal.day.subtract(random, 'day');
-      console.log(newMeal.day);
       this.myMeals.push(newMeal);
-      console.log(this.myMeals);
     }
     this.getDates();
   }
   getDates(){
-    this.dates.push(moment().format('MMM Do YY'));
+    this.dates.push(moment());
     for(var meal of this.myMeals){
-      var currentDate = meal.day.format('MMM Do YY');
-      if(this.dates.indexOf(currentDate)=== -1){
+      var array = this.dates.map(function(date) { return date.format() });
+      var currentDate = meal.day;
+      if(array.indexOf(currentDate.format()) === -1){
         this.dates.push(currentDate);
       }
     }
+    this.dates.sort(compareDate);
   }
   mealReceived(meal: Meal){
     this.myMeals.push(meal);
+    console.log(meal);
+    console.log(this.myMeals);
+  }
+}
+
+  function compareDate(a, b) {
+  if (a.isBefore(b)) {
+    return 1;
+  }
+  if (a.isAfter(b)) {
+    return -1;
   }
 }

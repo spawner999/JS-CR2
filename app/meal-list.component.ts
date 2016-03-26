@@ -11,22 +11,22 @@ import { CreateMealComponent } from './create-meal.component';
   outputs: ['createdMeal'],
   directives: [MealComponent, MealFilterComponent, CreateMealComponent],
   template: `
-    <h1>{{currentDate}}</h1>
+    <h1>{{currentDate.format('MMM Do YY')}}</h1>
     <div class="gallery">
     <meal *ngFor="#meal of myMeals" [currentMeal]="meal"></meal>
-    <create-meal *ngIf="currentDate===actualDate" (createdMeal)="mealReceived($event)"></create-meal>
+    <create-meal *ngIf="currentDate.format()===actualDate" (createdMeal)="mealReceived($event)"></create-meal>
     </div>
   `
 })
 
 export class MealListComponent {
   currentFilter: string;
-  currentDate: string;
-  actualDate: string;
+  currentDate;
+  actualDate;
   createdMeal: EventEmitter<Meal>;
   myMeals: Meal[];
   constructor(){
-    this.actualDate = moment().format('MMM Do YY');
+    this.actualDate = moment().format();
     this.createdMeal = new EventEmitter();
   }
   filterReceived(filter: string){

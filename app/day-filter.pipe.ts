@@ -10,7 +10,7 @@ export class DayFilterPipe implements PipeTransform {
   transform(input: Meal[], args) {
     var currentFilter = args[0];
       return input.filter((meal) =>{
-        return meal.day.format('MMM Do YY') === currentFilter;
+        return meal.day.format('MMM Do YY') === currentFilter.format('MMM Do YY');
       });
     }
 }
