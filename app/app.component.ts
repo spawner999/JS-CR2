@@ -1,23 +1,27 @@
 import { Component } from 'angular2/core';
 import { Meal } from './meal.model';
 import { MealListComponent } from './meal-list.component';
+import { MealFilterComponent } from './meal-filter.component';
 import { DayFilterPipe } from './day-filter.pipe';
+import { MealFilterPipe } from './meal-filter.pipe';
 
 @Component ({
   selector: 'my-app',
-  directives: [MealListComponent],
-  pipes: [DayFilterPipe],
+  directives: [MealListComponent, MealFilterComponent],
+  pipes: [DayFilterPipe, MealFilterPipe],
   template: `
   <h1 class="title-heading"> Meal Tracker </h1>
+  <meal-filter (currentFilter)="filterReceived($event)"></meal-filter>
     <div class="wrapper">
       <div class="container">
-      <meal-list *ngFor="#date of dates" [currentDate]="date" [myMeals]="myMeals | day:date" (createdMeal)="mealReceived($event)"></meal-list>
+      <meal-list *ngFor="#date of dates" [currentDate]="date" [myMeals]="myMeals | day:date | filter:currentFilter" (createdMeal)="mealReceived($event)"></meal-list>
       </div>
     </div>
   `
 })
 
 export class AppComponent {
+  currentFilter: string;
   myMeals: Meal[] = [];
   dates = [];
   constructor(){
@@ -49,8 +53,9 @@ export class AppComponent {
   }
   mealReceived(meal: Meal){
     this.myMeals.push(meal);
-    console.log(meal);
-    console.log(this.myMeals);
+  }
+  filterReceived(filter: string){
+    this.currentFilter = filter;
   }
 }
 
