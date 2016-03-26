@@ -10,11 +10,16 @@ import { MealFilterPipe } from './meal-filter.pipe';
   directives: [MealListComponent, MealFilterComponent],
   pipes: [DayFilterPipe, MealFilterPipe],
   template: `
-  <h1 class="title-heading"> Meal Tracker </h1>
-  <meal-filter (currentFilter)="filterReceived($event)"></meal-filter>
     <div class="wrapper">
+      <div class="header">
+      <h1 class="title-heading"> Meal Tracker </h1>
+      <h2> All Time Calories: {{totalCalories}}</h2>
+      <h2> Meal Avg: {{totalAvg}}</h2>
+      <h2> Daily Avg: {{dailyAvg}}</h2>
+      <meal-filter (currentFilter)="filterReceived($event)"></meal-filter>
+      </div>
       <div class="container">
-      <meal-list *ngFor="#date of dates" [currentDate]="date" [myMeals]="myMeals | day:date | filter:currentFilter" (createdMeal)="mealReceived($event)"></meal-list>
+      <meal-list *ngFor="#date of dates" [dailyCalories]="updateDateTotal(myMeals | day:date)" [currentDate]="date" [dailyMeals]="myMeals | day:date | filter:currentFilter" (createdMeal)="mealReceived($event)"></meal-list>
       </div>
     </div>
   `
@@ -24,6 +29,9 @@ export class AppComponent {
   currentFilter: string;
   myMeals: Meal[] = [];
   dates = [];
+  totalCalories: number = 0;
+  totalAvg: number = 0;
+  dailyAvg: number = 0;
   constructor(){
     this.populate();
   }
@@ -39,6 +47,27 @@ export class AppComponent {
       this.myMeals.push(newMeal);
     }
     this.getDates();
+    this.updateCalories();
+    this.updateMealAvg();
+    this.updateDailyAvg();
+  }
+  updateCalories(){
+    for(var meal of this.myMeals){
+      this.totalCalories += meal.calories;
+    }
+  }
+  updateMealAvg(){
+    this.totalAvg = Math.floor(this.totalCalories / this.myMeals.length);
+  }
+  updateDailyAvg(){
+    this.dailyAvg = Math.floor(this.totalCalories / this.dates.length);
+  }
+  updateDateTotal(meals: Meal[]){
+    var total: number = 0;
+    for(var meal of meals){
+      total += meal.calories;
+    }
+    return total;
   }
   getDates(){
     this.dates.push(moment());
@@ -53,6 +82,9 @@ export class AppComponent {
   }
   mealReceived(meal: Meal){
     this.myMeals.push(meal);
+    this.updateCalories();
+    this.updateMealAvg();
+    this.updateDailyAvg();
   }
   filterReceived(filter: string){
     this.currentFilter = filter;

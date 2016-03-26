@@ -5,13 +5,14 @@ import { CreateMealComponent } from './create-meal.component';
 
 @Component({
   selector: 'meal-list',
-  inputs: ['myMeals', 'currentDate'],
+  inputs: ['dailyMeals', 'currentDate', 'dailyCalories'],
   outputs: ['createdMeal'],
   directives: [MealComponent, CreateMealComponent],
   template: `
     <h1>{{currentDate.format('MMM Do YY')}}</h1>
+    <h2>Calories Consumed: {{dailyCalories}}</h2>
     <div class="gallery">
-    <meal *ngFor="#meal of myMeals" [currentMeal]="meal"></meal>
+    <meal *ngFor="#meal of dailyMeals" [currentMeal]="meal"></meal>
     <create-meal *ngIf="currentDate.format()===actualDate" (createdMeal)="mealReceived($event)"></create-meal>
     </div>
   `
@@ -20,8 +21,9 @@ import { CreateMealComponent } from './create-meal.component';
 export class MealListComponent {
   currentDate;
   actualDate;
+  dailyCalories: number;
   createdMeal: EventEmitter<Meal>;
-  myMeals: Meal[];
+  dailyMeals: Meal[];
   constructor(){
     this.actualDate = moment().format();
     this.createdMeal = new EventEmitter();
