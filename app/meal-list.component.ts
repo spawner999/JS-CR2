@@ -9,11 +9,13 @@ import { CreateMealComponent } from './create-meal.component';
   outputs: ['createdMeal'],
   directives: [MealComponent, CreateMealComponent],
   template: `
-    <h1>{{currentDate.format('MMM Do YY')}}</h1>
-    <h2>Calories Consumed: {{dailyCalories}}</h2>
+    <div class="title" *ngIf="dailyMeals.length > 0">
+      <h1 *ngIf="dailyMeals.length > 0">{{currentDate.format('MMM Do YY')}}</h1>
+      <h2>Calories Consumed: {{dailyCalories}}</h2>
+    </div>
     <div class="gallery">
-    <meal *ngFor="#meal of dailyMeals" [currentMeal]="meal"></meal>
-    <create-meal *ngIf="currentDate.format()===actualDate" (createdMeal)="mealReceived($event)"></create-meal>
+      <meal *ngFor="#meal of dailyMeals" [currentMeal]="meal"></meal>
+      <create-meal *ngIf="currentDate.format()===actualDate" (createdMeal)="mealReceived($event)"></create-meal>
     </div>
   `
 })

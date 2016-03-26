@@ -36,7 +36,7 @@ export class MealComponent {
     if (update){
       this.currentMeal.name = update[0];
       this.currentMeal.details = update[1];
-      this.currentMeal.calories = update[2];
+      this.currentMeal.calories = parseInt(update[2]);
     }
   }
 }

@@ -52,20 +52,24 @@ export class AppComponent {
     this.updateDailyAvg();
   }
   updateCalories(){
+    this.totalCalories = 0;
     for(var meal of this.myMeals){
       this.totalCalories += meal.calories;
     }
   }
   updateMealAvg(){
+    this.totalAvg = 0;
     this.totalAvg = Math.floor(this.totalCalories / this.myMeals.length);
   }
   updateDailyAvg(){
+    this.dailyAvg = 0;
     this.dailyAvg = Math.floor(this.totalCalories / this.dates.length);
   }
   updateDateTotal(meals: Meal[]){
     var total: number = 0;
     for(var meal of meals){
       total += meal.calories;
+      console.log(total);
     }
     return total;
   }
