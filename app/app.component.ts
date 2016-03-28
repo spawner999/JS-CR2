@@ -4,18 +4,18 @@ import { MealListComponent } from './meal-list.component';
 import { MealFilterComponent } from './meal-filter.component';
 import { DayFilterPipe } from './day-filter.pipe';
 import { MealFilterPipe } from './meal-filter.pipe';
+import { GlobalStatsComponent } from './global-stats.component';
 
+
+//Passing down a function in a directive will result in the output being updated on every change on the input. Better then doing the operation inside the parent component and having to use emitters to notify updates and force a refresh.
 @Component ({
   selector: 'my-app',
-  directives: [MealListComponent, MealFilterComponent],
+  directives: [MealListComponent, MealFilterComponent, GlobalStatsComponent],
   pipes: [DayFilterPipe, MealFilterPipe],
   template: `
     <div class="wrapper">
       <div class="header">
-      <h1 class="title-heading"> Meal Tracker </h1>
-      <h2> All Time Calories: {{totalCalories}}</h2>
-      <h2> Meal Avg: {{totalAvg}}</h2>
-      <h2> Daily Avg: {{dailyAvg}}</h2>
+      <global-stats [totalCalories]="updateTotal()" [totalAvg]="updateMealAvg()" [dailyAvg]="updateDailyAvg()"></global-stats>
       <meal-filter (currentFilter)="filterReceived($event)"></meal-filter>
       </div>
       <div class="container">
@@ -47,32 +47,35 @@ export class AppComponent {
       this.myMeals.push(newMeal);
     }
     this.getDates();
-    this.updateCalories();
-    this.updateMealAvg();
-    this.updateDailyAvg();
   }
-  updateCalories(){
+
+  updateTotal(){
     this.totalCalories = 0;
     for(var meal of this.myMeals){
       this.totalCalories += meal.calories;
     }
+    return this.totalCalories;
   }
   updateMealAvg(){
     this.totalAvg = 0;
     this.totalAvg = Math.floor(this.totalCalories / this.myMeals.length);
+    return this.totalAvg;
   }
+
   updateDailyAvg(){
     this.dailyAvg = 0;
     this.dailyAvg = Math.floor(this.totalCalories / this.dates.length);
+    return this.dailyAvg;
   }
+
   updateDateTotal(meals: Meal[]){
     var total: number = 0;
     for(var meal of meals){
       total += meal.calories;
-      console.log(total);
     }
     return total;
   }
+
   getDates(){
     this.dates.push(moment());
     for(var meal of this.myMeals){
@@ -84,15 +87,15 @@ export class AppComponent {
     }
     this.dates.sort(compareDate);
   }
+
   mealReceived(meal: Meal){
     this.myMeals.push(meal);
-    this.updateCalories();
-    this.updateMealAvg();
-    this.updateDailyAvg();
   }
+
   filterReceived(filter: string){
     this.currentFilter = filter;
   }
+
 }
 
   function compareDate(a, b) {

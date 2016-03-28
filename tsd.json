@@ -6,10 +6,10 @@
   "bundle": "typings/tsd.d.ts",
   "installed": {
     "moment/moment.d.ts": {
-      "commit": "dc6d1ebfaa554e85b91846574728930972ca9868"
+      "commit": "80057d687aefa736511e434cd2a6c0e9a6bb02bc"
     },
     "moment/moment-node.d.ts": {
-      "commit": "dc6d1ebfaa554e85b91846574728930972ca9868"
+      "commit": "80057d687aefa736511e434cd2a6c0e9a6bb02bc"
     }
   }
 }
